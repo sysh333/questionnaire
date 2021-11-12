@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-questionnaire-dev-74921-authRole",
+      "UnauthRoleArn": "arn:aws:iam::311482348230:role/amplify-questionnaire-dev-74921-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::311482348230:role/amplify-questionnaire-dev-74921-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-questionnaire-dev-74921-deployment",
+      "UnauthRoleName": "amplify-questionnaire-dev-74921-unauthRole",
+      "StackName": "amplify-questionnaire-dev-74921",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:311482348230:stack/amplify-questionnaire-dev-74921/0e2ea370-438d-11ec-a7dc-0ae535eeb56b",
+      "AmplifyAppId": "dq8rpi20t84ch"
+    },
+    "categories": {
+      "auth": {
+        "questionnaire85ae702c": {}
+      }
+    }
+  }
+}

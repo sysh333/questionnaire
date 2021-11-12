@@ -1,0 +1,23 @@
+type sourceTable @model @auth(rules: [{ allow: owner }]) @key(fields: ["title"])
+{
+  title: String!
+  category: String!
+  date: String!
+  url: String!
+  voteCount: Int!
+}
+
+type sourceBTable @model @auth(rules: [{ allow: owner }]) @key(fields: ["title"])
+{
+  title: String!
+  category: String!
+  date: String!
+  url: String!
+  voteCount: Int!
+}
+
+type targetTable @model {
+  title: String!
+  category: String!
+  updatedAt: String
+}
