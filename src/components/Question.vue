@@ -7,11 +7,11 @@
       dark
     >
       <div class="d-flex align-center">
-        新機能ご紹介アンケート
+        アンケート
       </div>
 
       <v-spacer></v-spacer>
-
+        <amplify-sign-out></amplify-sign-out>
       <!--<v-btn-->
       <!--  class="submit" v-bind:disabled="isPush" v-on:click="createTargetTable()">-->
       <!--  <span class="mr-2">{{submitState}}</span>-->
@@ -155,7 +155,8 @@ export default {
       let NewServiceUpdateList = await API.graphql(graphqlOperation(
         listSourceTables, {limit: limit}
       ))
-      this.NewServiceUpdateList = orderBy(NewServiceUpdateList.data.listSourceTables.items,'category','desc')
+      this.NewServiceUpdateList = orderBy(NewServiceUpdateList.data.listSourceTables.items,'date')
+      // this.NewServiceUpdateList = orderBy(NewServiceUpdateList.data.listSourceTables.items,'date','desc')
       console.log(this.NewServiceUpdateList)
       this.voteNewServiceUpdateList = this.NewServiceUpdateList.filter(x => x.voteCount > 0 )
 
