@@ -35,6 +35,7 @@ export const updateSourceTable = /* GraphQL */ `
     }
   }
 `;
+
 export const deleteSourceTable = /* GraphQL */ `
   mutation DeleteSourceTable(
     $input: DeleteSourceTableInput!

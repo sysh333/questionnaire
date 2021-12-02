@@ -75,7 +75,7 @@
 
 import { API, graphqlOperation } from "aws-amplify"
 import { listSourceTables } from "../graphql/queries"
-import { createTargetTable, updateSourceTable } from "../graphql/mutations"
+import { createTargetTable, updateSourceTable} from "../graphql/mutations"
 import { onUpdateSourceTable } from '@/graphql/subscriptions'
 import { orderBy } from 'lodash'
 
@@ -119,7 +119,6 @@ export default {
         console.log(data)
         console.log(data.value)
         const updatedEvent = data.value.data.onUpdateSourceTable
-        // this.NewServiceUpdateList[updatedEvent.title] = updatedEvent.voteCount
         for (let i = 0 ; i < this.NewServiceUpdateList.length ; i++){
           if (this.NewServiceUpdateList[i].title == updatedEvent.title){
             this.NewServiceUpdateList[i].voteCount = updatedEvent.voteCount
@@ -138,13 +137,15 @@ export default {
         const addCountItem = newVal.filter(i => oldVal.indexOf(i) == -1)
         console.log(addCountItem[0].title , addCountItem[0].voteCount+1);
         for (let i = 0 ; i < addCountItem.length ; i++){
-          await API.graphql(graphqlOperation(updateSourceTable, { input: { title: addCountItem[i].title, voteCount: addCountItem[i].voteCount+1 }}));
+          await API.graphql(graphqlOperation(updateSourceTable, { input: { title: addCountItem[i].title, category: 1}}));//catetoryをflagとして使用、appsyncのリゾルバの設定では1が増加
+          console.log("add :" + i)
         }
       } else {
         const delCountItem = oldVal.filter(i => newVal.indexOf(i) == -1)
         console.log(delCountItem[0].title , delCountItem[0].voteCount-1);
         for (let i = 0 ; i < delCountItem.length ; i++){
-          await API.graphql(graphqlOperation(updateSourceTable, { input: { title: delCountItem[i].title, voteCount: delCountItem[i].voteCount-1 }}));
+          await API.graphql(graphqlOperation(updateSourceTable, { input: { title: delCountItem[i].title, category: 0 }}));//catetoryをflagとして使用,appsyncのリゾルバでは1以外が減少
+          console.log("del :" + i)
         }
       }
     }
@@ -186,8 +187,7 @@ export default {
           }
         })
       })
-      // var -> let
-      var count = 1 ;
+      let count = 1 ;
       for (  var i = 0;  i < temp.length;  i++  ) {
         temp[ i ].id = count ;
         count++;
@@ -212,9 +212,11 @@ export default {
       }
     },
     getColor (voteCount) {
-      if (voteCount > 2) return 'red'
-      else if (voteCount > 1) return 'orange'
-      else if (voteCount > 0) return 'green'
+      if (voteCount > 4) return 'red'
+      else if (voteCount > 3) return 'deep-orange'
+      else if (voteCount > 2) return 'orange'
+      else if (voteCount > 1) return 'green'
+      else if (voteCount > 0) return 'lime'
       else return 'grey'
     },
   }
