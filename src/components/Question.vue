@@ -133,19 +133,19 @@ export default {
     selection: async function(newVal, oldVal) {
       // データの値が変化した時にコンソールに新しい値と古い値を出力
       // console.log(newVal, oldVal)
-      if (newVal.length > oldVal.length){
-        const addCountItem = newVal.filter(i => oldVal.indexOf(i) == -1)
-        console.log(addCountItem[0].title , addCountItem[0].voteCount+1);
-        for (let i = 0 ; i < addCountItem.length ; i++){
-          await API.graphql(graphqlOperation(updateSourceTable, { input: { title: addCountItem[i].title, category: 1}}));//catetoryをflagとして使用、appsyncのリゾルバの設定では1が増加
-          console.log("add :" + i)
-        }
-      } else {
+      if (newVal.length < oldVal.length){
         const delCountItem = oldVal.filter(i => newVal.indexOf(i) == -1)
         console.log(delCountItem[0].title , delCountItem[0].voteCount-1);
         for (let i = 0 ; i < delCountItem.length ; i++){
           await API.graphql(graphqlOperation(updateSourceTable, { input: { title: delCountItem[i].title, category: 0 }}));//catetoryをflagとして使用,appsyncのリゾルバでは1以外が減少
           console.log("del :" + i)
+        }
+      } else {
+        const addCountItem = newVal.filter(i => oldVal.indexOf(i) == -1)
+        console.log(addCountItem[0].title , addCountItem[0].voteCount+1);
+        for (let i = 0 ; i < addCountItem.length ; i++){
+          await API.graphql(graphqlOperation(updateSourceTable, { input: { title: addCountItem[i].title, category: 1}}));//catetoryをflagとして使用、appsyncのリゾルバの設定では1が増加
+          console.log("add :" + i)
         }
       }
     }
